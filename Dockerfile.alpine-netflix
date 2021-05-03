@@ -12,11 +12,13 @@ RUN apk add tzdata samba-client gosu
 RUN apk add xf86-video-amdgpu xf86-video-ati xf86-video-intel xf86-video-nouveau xf86-video-nv
 RUN apk add kodi
 RUN apk add gcompat kodi-inputstream-adaptive kodi-inputstream-rtmp
-COPY --from=builder /usr/lib/python3.9/site-packages/Crypto /usr/lib/python3.9/site-packages/Crypto
+COPY --from=builder /usr/lib/python3.9/site-packages/Crypto/ /usr/lib/python3.9/site-packages/Crypto/
 COPY essentials/pulse-client.conf /etc/pulse/client.conf
 
 RUN adduser -D -u $UID kodi -G users && adduser kodi audio && adduser kodi video
-RUN mkdir -p /home/kodi/.kodi && chown kodi:users /home/kodi/.kodi
+ADD https://raw.githubusercontent.com/CastagnaIT/repository.castagnait/matrix/repository.castagnait/addon.xml /home/kodi/.kodi/addons/repository.castagnait/addon.xml
+ADD https://raw.githubusercontent.com/CastagnaIT/repository.castagnait/matrix/repository.castagnait/icon.jpg /home/kodi/.kodi/addons/repository.castagnait/icon.jpg
+RUN chown -R kodi:users /home/kodi/.kodi
 VOLUME /home/kodi/.kodi
 
 COPY essentials/kodi-starter /usr/bin/
