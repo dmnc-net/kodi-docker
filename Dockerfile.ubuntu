@@ -2,6 +2,7 @@ FROM ubuntu:20.10
 LABEL maintainer="@dmnc-net"
 
 ARG UID=1000
+
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y software-properties-common tzdata gosu winbind
 RUN add-apt-repository ppa:team-xbmc/ppa && apt-get update && apt-get install -y kodi

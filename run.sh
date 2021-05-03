@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 xhost +local:docker > /dev/null
 mkdir -p $HOME/.kodi/temp $HOME/.kodi/userdata
 touch $HOME/.kodi/temp/kodi.log
