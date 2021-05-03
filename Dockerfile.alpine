@@ -1,0 +1,19 @@
+FROM alpine:edge
+LABEL maintainer="@dmnc-net"
+
+ARG UID=1000
+
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && apk update
+COPY essentials/pulse-client.conf /etc/pulse/client.conf
+RUN apk add tzdata samba-client gosu
+RUN apk add xf86-video-amdgpu xf86-video-ati xf86-video-intel xf86-video-nouveau xf86-video-nv
+RUN apk add kodi
+COPY essentials/pulse-client.conf /etc/pulse/client.conf
+
+RUN adduser -D -u $UID kodi -G users && adduser kodi audio && adduser kodi video
+RUN mkdir -p /home/kodi/.kodi && chown kodi:users /home/kodi/.kodi
+VOLUME /home/kodi/.kodi
+
+COPY essentials/kodi-starter /usr/bin/
+RUN chmod +x /usr/bin/kodi-starter
+ENTRYPOINT [ "/usr/bin/kodi-starter" ]
