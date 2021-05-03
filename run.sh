@@ -13,7 +13,7 @@ TZ=$(timedatectl|grep zone|awk '{print $3}')
 X11="-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY"
 PULSE="-v /run/user/$UID/pulse:/run/user/$UID/pulse -e PULSE_SERVER=unix:/run/user/$UID/pulse/native"
 DEV="--device /dev/dri --device /dev/snd"
-DBUS="-v /run/dbus:/run/dbus"
+DBUS="-v /run/dbus:/run/dbus -v /var/lib/dbus/machine-id:/var/lib/dbus/machine-id"
 V_HOMEFOLDER="-v $HOME:/home/kodi"
 V_KODI="-v kodi-data:/home/kodi/.kodi"
 V_USERDATA="-v $HOME/.kodi/userdata:/home/kodi/.kodi/userdata"
