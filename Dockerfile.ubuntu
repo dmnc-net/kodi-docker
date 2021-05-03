@@ -1,0 +1,16 @@
+FROM ubuntu:20.10
+LABEL maintainer="@dmnc-net"
+
+ARG UID=1000
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y software-properties-common tzdata gosu winbind
+RUN add-apt-repository ppa:team-xbmc/ppa && apt-get update && apt-get install -y kodi
+COPY essentials/pulse-client.conf /etc/pulse/client.conf
+
+RUN useradd -l -r -m -u $UID -g users kodi && usermod -a -G audio,video kodi
+RUN mkdir -p /home/kodi/.kodi && chown kodi:users /home/kodi/.kodi
+VOLUME /home/kodi/.kodi
+
+COPY essentials/kodi-starter /usr/bin/
+RUN chmod +x /usr/bin/kodi-starter
+ENTRYPOINT [ "/usr/bin/kodi-starter" ]

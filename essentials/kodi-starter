@@ -1,0 +1,4 @@
+#!/bin/bash
+[[ $(stat -c "%G" /dev/dri/card0) != "video" ]] && /usr/bin/chgrp video /dev/dri/card0
+#[[ $(stat -c "%G" /dev/dri/render*) != "render" ]] && /usr/bin/chgrp render /dev/dri/render*
+gosu kodi /usr/bin/kodi-standalone
