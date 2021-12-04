@@ -1,4 +1,4 @@
-FROM ubuntu:20.10
+FROM ubuntu:20.04
 LABEL maintainer="@dmnc-net"
 
 ARG UID=1000
